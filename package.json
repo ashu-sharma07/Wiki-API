@@ -1,0 +1,29 @@
+{
+  "name": "wiki-api",
+  "version": "1.0.0",
+  "description": "Learning How to build RESTfull apis ",
+  "main": "app.js",
+  "scripts": {
+    "test": "nope"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashu-sharma07/Wiki-API.git"
+  },
+  "keywords": [
+    "RESTfull",
+    "APIS"
+  ],
+  "author": "Ashu Sharma",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashu-sharma07/Wiki-API/issues"
+  },
+  "homepage": "https://github.com/ashu-sharma07/Wiki-API#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mongoose": "^6.4.4"
+  }
+}
