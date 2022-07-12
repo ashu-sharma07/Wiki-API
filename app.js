@@ -27,7 +27,7 @@ const articleSchema = new mongoose.Schema({
 
 const Article = mongoose.model("Article", articleSchema);
 
-// Handle get request on root route
+// Handle get request on /articles route
 
 app.get("/articles", (req, res) => {
   Article.find({}, (err, foundArticles) => {
@@ -41,20 +41,35 @@ app.get("/articles", (req, res) => {
   });
 });
 
+// Handle post request on /articles
+
 app.post("/articles", (req, res) => {
   const newArticle = new Article({
     title: req.body.title,
     content: req.body.content,
   });
-  newArticle.save((err)=>{
-    if(!err){
+  newArticle.save((err) => {
+    if (!err) {
       res.send("Successfully fully added a new article");
-    }else{
+    } else {
       errorReporter.reportError(err);
       res.send(err);
     }
   });
   console.log(newArticle);
+});
+
+// Handle delete request
+
+app.delete("/articles", (req, res) => {
+  Article.deleteMany({}, (err) => {
+    if (!err) {
+      res.send("Successfully deleted all articles");
+    } else {
+      res.send(err);
+      errorReporter.reportError(err);
+    }
+  });
 });
 
 // Listening for HTTP request on specfic port
