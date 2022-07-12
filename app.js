@@ -27,14 +27,6 @@ const articleSchema = new mongoose.Schema({
 
 const Article = mongoose.model("Article", articleSchema);
 
-const myarticle = new Article({
-  title: "How to win friends?",
-  content:
-    "How to win friends is a really popular book on human communication and relations.",
-});
-
-// myarticle.save();
-
 // Handle get request on root route
 
 app.get("/articles", (req, res) => {
@@ -47,6 +39,22 @@ app.get("/articles", (req, res) => {
       res.send(err);
     }
   });
+});
+
+app.post("/articles", (req, res) => {
+  const newArticle = new Article({
+    title: req.body.title,
+    content: req.body.content,
+  });
+  newArticle.save((err)=>{
+    if(!err){
+      res.send("Successfully fully added a new article");
+    }else{
+      errorReporter.reportError(err);
+      res.send(err);
+    }
+  });
+  console.log(newArticle);
 });
 
 // Listening for HTTP request on specfic port
