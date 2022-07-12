@@ -4,6 +4,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
+const errorReporter = require("./errorReporting");
 
 // Seting up app object
 
@@ -32,12 +33,20 @@ const myarticle = new Article({
     "How to win friends is a really popular book on human communication and relations.",
 });
 
-myarticle.save();
+// myarticle.save();
 
 // Handle get request on root route
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
+app.get("/articles", (req, res) => {
+  Article.find({}, (err, foundArticles) => {
+    if (!err) {
+      res.send(foundArticles);
+    } else {
+      console.log("Error occured while finding articles");
+      errorReporter.reportError(err);
+      res.send(err);
+    }
+  });
 });
 
 // Listening for HTTP request on specfic port
@@ -46,6 +55,7 @@ app.listen(port, (err) => {
   if (!err) {
     console.log(`Sever started on port ${port}`);
   } else {
-    console.log("Reporting erro while running app on  port ");
+    console.log("Reporting error while running app on  port ");
+    errorReporter.reportError(err);
   }
 });
